@@ -33,5 +33,11 @@ endif()
 if (UNIX AND NOT ANDROID)
     set(CMAKE_POSITION_INDEPENDENT_CODE ON)
 endif()
+# Third-party libraries
+add_subdirectory(${OCF_THIRDPARTY_PATH}/glad)
+add_subdirectory(${OCF_THIRDPARTY_PATH}/glfw)
+add_subdirectory(${OCF_THIRDPARTY_PATH}/googletest/ocf)
+
+# Engine and tests
 add_subdirectory (${OCF_ROOT_PATH}/engine)
 add_subdirectory (${OCF_ROOT_PATH}/tests)

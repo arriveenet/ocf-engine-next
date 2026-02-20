@@ -13,6 +13,7 @@ set(PUBLIC_HDRS
     include/ocf/Engine.h
     include/ocf/Node.h
     include/ocf/Scene.h
+    include/ocf/platform/Window.h
 )
 
 set(PRIVATE_HDRS
@@ -42,6 +43,11 @@ target_include_directories(${TARGET} PUBLIC ${PUBLIC_HDR_DIR})
 
 set_target_properties(${TARGET} PROPERTIES FOLDER ocfengine)
 
+# ==================================================================================================
+# Dependencies
+# ==================================================================================================
+target_link_libraries(${TARGET} PUBLIC glad)
+target_link_libraries(${TARGET} PUBLIC glfw)
 
 # ==================================================================================================
 # Compiler flags
@@ -58,3 +64,8 @@ else()
 endif()
 
 target_compile_options(${TARGET} PRIVATE ${OCF_WARNINGS})
+
+# ==================================================================================================
+# Sub-projects
+# ==================================================================================================
+add_subdirectory(test)
