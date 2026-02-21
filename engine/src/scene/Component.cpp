@@ -1,5 +1,5 @@
 /* SPDX - License - Identifier : MIT */
-#include "ocf/Component.h"
+#include "ocf/scene/Component.h"
 
 namespace ocf {
     

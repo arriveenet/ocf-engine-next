@@ -5,7 +5,7 @@
  * Copyright (c) 2025 Tsuyoshi KATAYAMA
  *
  */
-#include "ocf/Engine.h"
+#include "ocf/scene/Engine.h"
 
 namespace ocf {
 
@@ -20,6 +20,17 @@ Engine::~Engine()
 void Engine::update()
 {
     calculateDeltaTime();
+}
+
+void Engine::draw()
+{
+
+}
+
+void Engine::mainLoop()
+{
+    update();
+    draw();
 }
 
 void Engine::calculateDeltaTime()

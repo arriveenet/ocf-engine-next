@@ -14,10 +14,6 @@ option(BUILD_SHARED_LIBS "Build shared libraries" OFF)
 # ==================================================================================================
 
 set(PUBLIC_HDRS
-    include/ocf/Component.h
-    include/ocf/Engine.h
-    include/ocf/Node.h
-    include/ocf/Scene.h
     include/ocf/math/constants.h
     include/ocf/math/constants.inl
     include/ocf/math/geometric.h
@@ -44,6 +40,10 @@ set(PUBLIC_HDRS
     include/ocf/math/vec4.inl
     include/ocf/platform/Application.h
     include/ocf/platform/Window.h
+    include/ocf/scene/Component.h
+    include/ocf/scene/Engine.h
+    include/ocf/scene/Node.h
+    include/ocf/scene/Scene.h
 )
 
 set(PRIVATE_HDRS
@@ -51,15 +51,15 @@ set(PRIVATE_HDRS
 )
 
 set(SRCS
-    src/Component.cpp
-    src/Engine.cpp
-    src/Node.cpp
-    src/Scene.cpp
     src/math/MaxRectsBinPack.cpp
     src/math/Rect.cpp
     src/platform/Application.cpp
     src/platform/Window.cpp
     src/platform/GLFWWindow.cpp
+    src/scene/Component.cpp
+    src/scene/Engine.cpp
+    src/scene/Node.cpp
+    src/scene/Scene.cpp
 )
 
 

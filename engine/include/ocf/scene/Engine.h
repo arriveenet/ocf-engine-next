@@ -10,6 +10,9 @@ public:
     virtual ~Engine();
 
     void update();
+    void draw();
+
+    void mainLoop();
 
 private:
     void calculateDeltaTime();
