@@ -13,6 +13,30 @@ set(PUBLIC_HDRS
     include/ocf/Engine.h
     include/ocf/Node.h
     include/ocf/Scene.h
+    include/ocf/math/constants.h
+    include/ocf/math/constants.inl
+    include/ocf/math/geometric.h
+    include/ocf/math/geometric.inl
+    include/ocf/math/mat2.h
+    include/ocf/math/mat2.inl
+    include/ocf/math/mat3.h
+    include/ocf/math/mat3.inl
+    include/ocf/math/mat4.h
+    include/ocf/math/mat4.inl
+    include/ocf/math/matrix_transform.h
+    include/ocf/math/matrix_transform.inl
+    include/ocf/math/MaxRectsBinPack.h
+    include/ocf/math/qualifie.h
+    include/ocf/math/quat.h
+    include/ocf/math/quat.inl
+    include/ocf/math/Rect.h
+    include/ocf/math/RectBinPack.h
+    include/ocf/math/vec2.h
+    include/ocf/math/vec2.inl
+    include/ocf/math/vec3.h
+    include/ocf/math/vec3.inl
+    include/ocf/math/vec4.h
+    include/ocf/math/vec4.inl
     include/ocf/platform/Window.h
 )
 
@@ -24,6 +48,8 @@ set(SRCS
     src/Engine.cpp
     src/Node.cpp
     src/Scene.cpp
+    src/math/MaxRectsBinPack.cpp
+    src/math/Rect.cpp
 )
 
 
