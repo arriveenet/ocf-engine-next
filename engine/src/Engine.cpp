@@ -17,10 +17,6 @@ Engine::~Engine()
 {
 }
 
-void Engine::run()
-{
-}
-
 void Engine::update()
 {
     calculateDeltaTime();

@@ -5,6 +5,11 @@ set(TARGET ocfengine)
 set(PUBLIC_HDR_DIR include)
 
 # ==================================================================================================
+# Options
+# ==================================================================================================
+option(BUILD_SHARED_LIBS "Build shared libraries" OFF)
+
+# ==================================================================================================
 # Sources and headers
 # ==================================================================================================
 
@@ -37,10 +42,12 @@ set(PUBLIC_HDRS
     include/ocf/math/vec3.inl
     include/ocf/math/vec4.h
     include/ocf/math/vec4.inl
+    include/ocf/platform/Application.h
     include/ocf/platform/Window.h
 )
 
 set(PRIVATE_HDRS
+    src/platform/GLFWWindow.h
 )
 
 set(SRCS
@@ -50,6 +57,9 @@ set(SRCS
     src/Scene.cpp
     src/math/MaxRectsBinPack.cpp
     src/math/Rect.cpp
+    src/platform/Application.cpp
+    src/platform/Window.cpp
+    src/platform/GLFWWindow.cpp
 )
 
 
@@ -63,7 +73,12 @@ include_directories(${PUBLIC_HDR_DIR})
 include_directories(src)
 
 #building a library
-add_library(${TARGET} STATIC ${PUBLIC_HDRS} ${PRIVATE_HDRS} ${SRCS})
+add_library(${TARGET} ${PUBLIC_HDRS} ${PRIVATE_HDRS} ${SRCS})
+if(BUILD_SHARED_LIBS)
+    target_compile_definitions(${TARGET} PRIVATE OCF_LIBRARY_EXPORTS)
+else()
+    target_compile_definitions(${TARGET} PUBLIC OCF_LIBRARY_STATIC)
+endif()
 
 target_include_directories(${TARGET} PUBLIC ${PUBLIC_HDR_DIR})
 
@@ -94,4 +109,4 @@ target_compile_options(${TARGET} PRIVATE ${OCF_WARNINGS})
 # ==================================================================================================
 # Sub-projects
 # ==================================================================================================
-add_subdirectory(test)
+# add_subdirectory(test)

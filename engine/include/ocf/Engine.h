@@ -9,8 +9,6 @@ public:
     Engine();
     virtual ~Engine();
 
-    void run();
-
     void update();
 
 private:
