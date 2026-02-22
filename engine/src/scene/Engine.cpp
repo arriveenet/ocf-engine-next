@@ -1,6 +1,5 @@
 /* SPDX - License - Identifier : MIT */
 /*
- * src/Engine.cpp
  *
  * Copyright (c) 2025 Tsuyoshi KATAYAMA
  *
@@ -31,6 +30,12 @@ void Engine::mainLoop()
 {
     update();
     draw();
+}
+
+Scene* Engine::createScene()
+{
+    m_currentScene = std::make_unique<Scene>();
+    return m_currentScene.get();
 }
 
 void Engine::calculateDeltaTime()

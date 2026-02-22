@@ -14,6 +14,7 @@ option(BUILD_SHARED_LIBS "Build shared libraries" OFF)
 # ==================================================================================================
 
 set(PUBLIC_HDRS
+    include/ocf/2d/Sprite.h
     include/ocf/math/constants.h
     include/ocf/math/constants.inl
     include/ocf/math/geometric.h
@@ -51,6 +52,7 @@ set(PRIVATE_HDRS
 )
 
 set(SRCS
+    src/2d/Sprite.cpp
     src/math/MaxRectsBinPack.cpp
     src/math/Rect.cpp
     src/platform/Application.cpp

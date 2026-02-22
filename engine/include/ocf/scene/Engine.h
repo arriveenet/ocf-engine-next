@@ -1,11 +1,15 @@
 /* SPDX - License - Identifier : MIT */
 #pragma once
 #include <chrono>
+#include <memory>
 
 namespace ocf {
 
+class Scene;
+
 class Engine {
 public:
+
     Engine();
     virtual ~Engine();
 
@@ -14,12 +18,15 @@ public:
 
     void mainLoop();
 
+    Scene* createScene();
+
 private:
     void calculateDeltaTime();
 
 private:
     float m_deltaTime;
     std::chrono::steady_clock::time_point m_lastUpdate;
+    std::unique_ptr<Scene> m_currentScene;
 };
 
 } // namespace ocf
