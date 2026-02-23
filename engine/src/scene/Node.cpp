@@ -1,6 +1,7 @@
 /* SPDX - License - Identifier : MIT */
 #include "ocf/scene/Node.h"
 #include "ocf/scene/Component.h"
+#include <algorithm>
 
 namespace ocf {
 

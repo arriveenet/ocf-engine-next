@@ -5,6 +5,7 @@
  *
  */
 #include "ocf/scene/Engine.h"
+#include "ocf/scene/Scene.h"
 
 namespace ocf {
 
