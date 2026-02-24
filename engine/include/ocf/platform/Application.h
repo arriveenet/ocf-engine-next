@@ -7,6 +7,7 @@
 
 namespace ocf {
 
+class Engine;
 class Window;
 
 struct Config {
@@ -39,6 +40,7 @@ private:
     Application();
 
 private:
+    Engine* m_engine = nullptr;
     std::unique_ptr<Window> m_window;
 };
 

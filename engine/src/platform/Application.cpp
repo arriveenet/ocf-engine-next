@@ -1,5 +1,6 @@
 /* SPDX - License - Identifier : MIT */
 #include "ocf/platform/Application.h"
+#include "ocf/scene/Engine.h"
 #include "platform/GLFWWindow.h"
 
 namespace ocf {
@@ -28,6 +29,8 @@ void Application::run(const Config& config, SetupCallback setupCallback,
         // Handle window creation failure
         return;
     }
+
+    m_engine = Engine::create();
     
     if (setupCallback) {
         setupCallback();
@@ -35,7 +38,7 @@ void Application::run(const Config& config, SetupCallback setupCallback,
 
     while (!m_window->windowShouldClose()) {
         // Main application loop
-
+        m_engine->mainLoop();
         m_window->pollEvents();
         m_window->swapBuffers();
     }
@@ -43,6 +46,8 @@ void Application::run(const Config& config, SetupCallback setupCallback,
     if (cleanupCallback) {
         cleanupCallback();
     }
+
+    Engine::destroy(m_engine);
 }
 
 } // namespace ocf
