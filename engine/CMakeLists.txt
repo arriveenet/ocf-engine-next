@@ -41,6 +41,7 @@ set(PUBLIC_HDRS
     include/ocf/math/vec4.inl
     include/ocf/platform/Application.h
     include/ocf/platform/Window.h
+    include/ocf/renderer/Renderer.h
     include/ocf/scene/Component.h
     include/ocf/scene/Engine.h
     include/ocf/scene/Node.h
@@ -58,6 +59,7 @@ set(SRCS
     src/platform/Application.cpp
     src/platform/Window.cpp
     src/platform/GLFWWindow.cpp
+    src/renderer/Renderer.cpp
     src/scene/Component.cpp
     src/scene/Engine.cpp
     src/scene/Node.cpp
