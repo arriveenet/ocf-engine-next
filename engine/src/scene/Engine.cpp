@@ -7,8 +7,11 @@
 #include "ocf/scene/Engine.h"
 #include "ocf/scene/Scene.h"
 #include "ocf/renderer/Renderer.h"
+#include "renderer/backend/opengl/OpenGLDriver.h"
 
 namespace ocf {
+
+using namespace backend;
 
 Engine::Engine()
     : m_deltaTime(0.0f)

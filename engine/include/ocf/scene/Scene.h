@@ -3,6 +3,8 @@
 
 namespace ocf {
 
+class Node;
+
 class Scene {
 public:
     Scene();
@@ -10,7 +12,8 @@ public:
 
     void update(float deltaTime);
 
-private:
+protected:
+    Node* m_root;
 };
 
 } // namespace ocf

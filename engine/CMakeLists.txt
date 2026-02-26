@@ -4,6 +4,8 @@ project(OcfEngine_lib C ASM)
 set(TARGET ocfengine)
 set(PUBLIC_HDR_DIR include)
 
+include(src/renderer/backend/CMakeLists.txt)
+
 # ==================================================================================================
 # Options
 # ==================================================================================================
@@ -15,6 +17,8 @@ option(BUILD_SHARED_LIBS "Build shared libraries" OFF)
 
 set(PUBLIC_HDRS
     include/ocf/2d/Sprite.h
+    include/ocf/core/Allocator.h
+    include/ocf/core/Logger.h
     include/ocf/math/constants.h
     include/ocf/math/constants.inl
     include/ocf/math/geometric.h
@@ -42,6 +46,12 @@ set(PUBLIC_HDRS
     include/ocf/platform/Application.h
     include/ocf/platform/Window.h
     include/ocf/renderer/Renderer.h
+    include/ocf/renderer/backend/BufferDescriptor.h
+    include/ocf/renderer/backend/Driver.h
+    include/ocf/renderer/backend/DriverEnums.h
+    include/ocf/renderer/backend/Handle.h
+    include/ocf/renderer/backend/PipelineState.h
+    include/ocf/renderer/backend/PixelBufferDescriptor.h
     include/ocf/scene/Component.h
     include/ocf/scene/Engine.h
     include/ocf/scene/Node.h
@@ -54,6 +64,8 @@ set(PRIVATE_HDRS
 
 set(SRCS
     src/2d/Sprite.cpp
+    src/core/Allocator.cpp
+    src/core/Logger.cpp
     src/math/MaxRectsBinPack.cpp
     src/math/Rect.cpp
     src/platform/Application.cpp
@@ -91,6 +103,7 @@ set_target_properties(${TARGET} PROPERTIES FOLDER ocfengine)
 # ==================================================================================================
 # Dependencies
 # ==================================================================================================
+target_link_libraries(${TARGET} PUBLIC fmt)
 target_link_libraries(${TARGET} PUBLIC glad)
 target_link_libraries(${TARGET} PUBLIC glfw)
 

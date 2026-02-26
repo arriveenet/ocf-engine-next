@@ -9,6 +9,11 @@ cmake_minimum_required (VERSION 3.19)
 project(OcfEngine-Next)
 
 # ==================================================================================================
+# Options
+# ==================================================================================================
+option(OCF_USE_GL "Use OpenGL" ON)
+
+# ==================================================================================================
 #  Paths
 # ==================================================================================================
 set(OCF_ROOT_PATH ${CMAKE_CURRENT_SOURCE_DIR})
@@ -34,6 +39,7 @@ if (UNIX AND NOT ANDROID)
     set(CMAKE_POSITION_INDEPENDENT_CODE ON)
 endif()
 # Third-party libraries
+add_subdirectory(${OCF_THIRDPARTY_PATH}/fmt)
 add_subdirectory(${OCF_THIRDPARTY_PATH}/glad)
 add_subdirectory(${OCF_THIRDPARTY_PATH}/glfw)
 add_subdirectory(${OCF_THIRDPARTY_PATH}/googletest/ocf)
