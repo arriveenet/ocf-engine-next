@@ -4,94 +4,79 @@ project(OcfEngine_lib C ASM)
 set(TARGET ocfengine)
 set(PUBLIC_HDR_DIR include)
 
-include(src/renderer/backend/CMakeLists.txt)
-
 # ==================================================================================================
 # Options
 # ==================================================================================================
 option(BUILD_SHARED_LIBS "Build shared libraries" OFF)
 
 # ==================================================================================================
+# functions
+# ==================================================================================================
+function( add_filtered_public_h filterName fileString )
+    file(GLOB TMP_FILES ${fileString})
+    set(PUBLIC_HEADER_FILES ${PUBLIC_HEADER_FILES} ${TMP_FILES} PARENT_SCOPE)
+    source_group(${filterName} FILES ${TMP_FILES})
+endfunction( add_filtered_h )
+
+function( add_filtered_private_h filterName fileString )
+    file(GLOB TMP_FILES ${fileString})
+    set(PRIVATE_HEADER_FILES ${PRIVATE_HEADER_FILES} ${TMP_FILES} PARENT_SCOPE)
+    source_group(${filterName} FILES ${TMP_FILES})
+endfunction( add_filtered_h )
+
+function( add_filtered_src filterName fileString )
+    file(GLOB TMP_FILES ${fileString})
+    set(SOURCE_FILES ${SOURCE_FILES} ${TMP_FILES} PARENT_SCOPE)
+    source_group(${filterName} FILES ${TMP_FILES})
+endfunction( add_filtered_src )
+
+function( add_filtered_std relativePath )
+    string(REPLACE "/" "\\" filterPart ${relativePath})
+    # Add public headers
+    add_filtered_public_h(
+        "Public Header Files\\${filterPart}"
+        "${CMAKE_CURRENT_SOURCE_DIR}/include/ocf/${relativePath}/*.h")
+    add_filtered_public_h(
+        "Public Header Files\\${filterPart}"
+        "${CMAKE_CURRENT_SOURCE_DIR}/include/ocf/${relativePath}/*.inl")
+    set(PUBLIC_HEADER_FILES ${PUBLIC_HEADER_FILES} PARENT_SCOPE)
+
+    # Add private headers
+    add_filtered_private_h(
+        "Private Header Files\\${filterPart}"
+        "${CMAKE_CURRENT_SOURCE_DIR}/src/${relativePath}/*.h")
+    set(PRIVATE_HEADER_FILES ${PRIVATE_HEADER_FILES} PARENT_SCOPE)
+
+    # Add source files
+    add_filtered_src(
+        "Source Files\\${filterPart}"
+        "${CMAKE_CURRENT_SOURCE_DIR}/src/${relativePath}/*.cpp")
+    set(SOURCE_FILES ${SOURCE_FILES} PARENT_SCOPE)
+endfunction( add_filtered_std )
+
+# ==================================================================================================
 # Sources and headers
 # ==================================================================================================
+add_filtered_std("2d")
+add_filtered_std("core")
+add_filtered_std("math")
+add_filtered_std("platform")
+add_filtered_std("renderer")
+add_filtered_std("renderer/backend")
+add_filtered_std("scene")
 
-set(PUBLIC_HDRS
-    include/ocf/2d/Sprite.h
-    include/ocf/core/Allocator.h
-    include/ocf/core/Logger.h
-    include/ocf/core/Object.h
-    include/ocf/math/constants.h
-    include/ocf/math/constants.inl
-    include/ocf/math/geometric.h
-    include/ocf/math/geometric.inl
-    include/ocf/math/mat2.h
-    include/ocf/math/mat2.inl
-    include/ocf/math/mat3.h
-    include/ocf/math/mat3.inl
-    include/ocf/math/mat4.h
-    include/ocf/math/mat4.inl
-    include/ocf/math/matrix_transform.h
-    include/ocf/math/matrix_transform.inl
-    include/ocf/math/MaxRectsBinPack.h
-    include/ocf/math/qualifie.h
-    include/ocf/math/quat.h
-    include/ocf/math/quat.inl
-    include/ocf/math/Rect.h
-    include/ocf/math/RectBinPack.h
-    include/ocf/math/vec2.h
-    include/ocf/math/vec2.inl
-    include/ocf/math/vec3.h
-    include/ocf/math/vec3.inl
-    include/ocf/math/vec4.h
-    include/ocf/math/vec4.inl
-    include/ocf/platform/Application.h
-    include/ocf/platform/Window.h
-    include/ocf/renderer/Renderer.h
-    include/ocf/renderer/backend/BufferDescriptor.h
-    include/ocf/renderer/backend/Driver.h
-    include/ocf/renderer/backend/DriverEnums.h
-    include/ocf/renderer/backend/Handle.h
-    include/ocf/renderer/backend/PipelineState.h
-    include/ocf/renderer/backend/PixelBufferDescriptor.h
-    include/ocf/scene/Component.h
-    include/ocf/scene/Engine.h
-    include/ocf/scene/Node.h
-    include/ocf/scene/Scene.h
-)
-
-set(PRIVATE_HDRS
-    src/platform/GLFWWindow.h
-)
-
-set(SRCS
-    src/2d/Sprite.cpp
-    src/core/Allocator.cpp
-    src/core/Logger.cpp
-    src/core/Object.cpp
-    src/math/MaxRectsBinPack.cpp
-    src/math/Rect.cpp
-    src/platform/Application.cpp
-    src/platform/Window.cpp
-    src/platform/GLFWWindow.cpp
-    src/renderer/Renderer.cpp
-    src/scene/Component.cpp
-    src/scene/Engine.cpp
-    src/scene/Node.cpp
-    src/scene/Scene.cpp
-)
-
-
-list(APPEND PRIVATE_HDRS ${OCF_BACKEND_HEADER})
-list(APPEND SRCS ${OCF_BACKEND_SRC})
+if(OCF_USE_GL)
+    add_filtered_std("renderer/backend/opengl")
+endif()
 
 # ==================================================================================================
 # Includes & target definition
 # ==================================================================================================
-include_directories(${PUBLIC_HDR_DIR})
+include_directories(${PUBLIC_HEADER_FILES})
 include_directories(src)
 
 #building a library
-add_library(${TARGET} ${PUBLIC_HDRS} ${PRIVATE_HDRS} ${SRCS})
+add_library(${TARGET} ${PUBLIC_HEADER_FILES} ${PRIVATE_HEADER_FILES} ${SOURCE_FILES})
 if(BUILD_SHARED_LIBS)
     target_compile_definitions(${TARGET} PRIVATE OCF_LIBRARY_EXPORTS)
 else()
