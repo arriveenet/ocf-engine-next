@@ -1,11 +1,12 @@
 /* SPDX - License - Identifier : MIT */ 
 #pragma once
+#include "ocf/core/Object.h"
 
 namespace ocf {
 
 class Node;
 
-class Component {
+class OCF_API Component : public Object {
 public:
     Component();
     virtual ~Component();

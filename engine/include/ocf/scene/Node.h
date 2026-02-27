@@ -1,5 +1,6 @@
 /* SPDX - License - Identifier : MIT */
 #pragma once
+#include "ocf/core/Object.h"
 #include <memory>
 #include <vector>
 
@@ -10,7 +11,7 @@ class Component;
 /**
  * @brief Node class represents a node in the scene graph.
  */
-class Node {
+class OCF_API Node : public Object {
 public:
     Node();
     virtual ~Node();

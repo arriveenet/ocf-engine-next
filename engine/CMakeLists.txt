@@ -19,6 +19,7 @@ set(PUBLIC_HDRS
     include/ocf/2d/Sprite.h
     include/ocf/core/Allocator.h
     include/ocf/core/Logger.h
+    include/ocf/core/Object.h
     include/ocf/math/constants.h
     include/ocf/math/constants.inl
     include/ocf/math/geometric.h
@@ -66,6 +67,7 @@ set(SRCS
     src/2d/Sprite.cpp
     src/core/Allocator.cpp
     src/core/Logger.cpp
+    src/core/Object.cpp
     src/math/MaxRectsBinPack.cpp
     src/math/Rect.cpp
     src/platform/Application.cpp
