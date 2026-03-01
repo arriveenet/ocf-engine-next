@@ -9,6 +9,7 @@ namespace ocf {
 
 class Engine;
 class Window;
+class Scene;
 
 struct Config {
     std::string title;
@@ -22,8 +23,8 @@ struct Config {
 
 class OCF_API Application {
 public:
-    using SetupCallback = std::function<void()>;
-    using CleanupCallback = std::function<void()>;
+    using SetupCallback = std::function<void(Scene* scene)>;
+    using CleanupCallback = std::function<void(Scene* scene)>;
 
     static Application& getInstance();
 

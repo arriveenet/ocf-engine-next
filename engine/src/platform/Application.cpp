@@ -31,9 +31,11 @@ void Application::run(const Config& config, SetupCallback setupCallback,
     }
 
     m_engine = Engine::create();
+
+    Scene* scene = m_engine->createScene();
     
     if (setupCallback) {
-        setupCallback();
+        setupCallback(scene);
     }
 
     while (!m_window->windowShouldClose()) {
@@ -44,7 +46,7 @@ void Application::run(const Config& config, SetupCallback setupCallback,
     }
 
     if (cleanupCallback) {
-        cleanupCallback();
+        cleanupCallback(scene);
     }
 
     Engine::destroy(m_engine);

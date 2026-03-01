@@ -7,7 +7,7 @@ namespace ocf {
 
 class OCF_API Object {
 public:
-    Object() = default;
+    Object();
     Object(uint32_t id)
         : m_id(id)
     {
@@ -15,8 +15,10 @@ public:
 
     virtual ~Object() = default;
 
+    uint32_t getId() const { return m_id; } 
+
 private:
-    uint32_t m_id;
+    uint32_t m_id = 0;
 };
 
 } // namespace ocf

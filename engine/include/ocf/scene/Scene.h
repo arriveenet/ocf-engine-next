@@ -12,6 +12,8 @@ public:
 
     void update(float deltaTime);
 
+    Node* getRoot() const { return m_root; }
+
 protected:
     Node* m_root;
 };
