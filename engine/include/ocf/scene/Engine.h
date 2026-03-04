@@ -5,6 +5,10 @@
 
 namespace ocf {
 
+namespace backend {
+class Driver;
+}
+
 class Scene;
 class Renderer;
 
@@ -20,6 +24,8 @@ public:
 
     Scene* createScene();
 
+    backend::Driver* getDriver() const { return m_driver; }
+
 private:
     Engine();
     ~Engine();
@@ -33,6 +39,7 @@ private:
     std::chrono::steady_clock::time_point m_lastUpdate;
     std::unique_ptr<Scene> m_currentScene;
     Renderer* m_renderer = nullptr;
+    backend::Driver* m_driver = nullptr;
 };
 
 } // namespace ocf

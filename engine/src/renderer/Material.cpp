@@ -1,0 +1,78 @@
+// SPDX - License - Identifier : MIT
+#include "ocf/renderer/Material.h"
+
+#include "ocf/core/Logger.h"
+#include "ocf/scene/Engine.h"
+#include "ocf/renderer/Program.h"
+#include "ocf/renderer/Texture.h"
+#include "ocf/renderer/backend/Driver.h"
+
+namespace ocf {
+
+using namespace backend;
+
+Material* Material::create(Program* program, Texture* texture)
+{
+    Material* material = new Material();
+    if (material->init(program, texture)) {
+        return material;
+    }
+    delete material;
+    return nullptr;
+}
+
+Material::Material()
+{
+}
+
+Material::~Material()
+{
+    free(m_uniformBuffer);
+}
+
+bool Material::init(Program* program, Texture* texture)
+{
+    m_program = program;
+    m_texture = texture;
+
+    Driver* driver = Engine::getInstance()->getDriver();
+    driver->getActiveUniforms(m_program->getHandle(), m_uniformInfoMap);
+
+    size_t totalSize = 0;
+    for (const auto& pair : m_uniformInfoMap) {
+        totalSize += pair.second.size;
+    }
+     m_uniformBuffer = static_cast<char*>(malloc(totalSize));
+
+    return true;
+}
+
+void Material::setParameter(std::string_view name, const void* data, size_t size)
+{
+    UniformInfo& uniformInfo = m_uniformInfoMap[name.data()];
+    if (uniformInfo.location == -1) {
+        OCF_LOG_WARN("Material::setParameter() - uniform '{}' not found in program", name);
+        return;
+    }
+
+    if (size != uniformInfo.size) {
+        OCF_LOG_WARN(
+            "Material::setParameter() - size mismatch for uniform '{}': expected {}, got {}", name,
+            uniformInfo.size, size);
+        return;
+    }
+
+    assert(m_uniformBuffer != nullptr);
+    memcpy(m_uniformBuffer + uniformInfo.offset, data, size);
+}
+
+void Material::setParameter(std::string_view, const Texture* texture,
+                            const TextureSampler& sampler)
+{
+    Engine::getInstance()->getDriver()->setSamplerParameters(texture->getHandle(),
+                                                             sampler.getParams());
+}
+
+
+
+} // namespace ocf

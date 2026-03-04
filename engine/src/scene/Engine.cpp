@@ -18,11 +18,13 @@ Engine::Engine()
     , m_lastUpdate(std::chrono::steady_clock::now())
 {
     m_renderer = new Renderer();
+    m_driver = OpenGLDriver::create();
 }
 
 Engine::~Engine()
 {
     delete m_renderer;
+    delete m_driver;
 }
 
 bool Engine::init()
